@@ -1,17 +1,15 @@
-// src/auth/dto/register.dto.ts
-
-import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class RegisterDto {
   @IsNotEmpty()
-  nome: string;
+  nome!: string;
 
   @IsNotEmpty()
-  sobrenome: string;
+  sobrenome!: string;
 
   @IsEmail()
-  email: string;
+  email!: string;
 
-  @MinLength(6)
-  senha: string;
+  @IsNotEmpty()
+  senha!: string;
 }
