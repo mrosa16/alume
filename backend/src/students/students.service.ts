@@ -22,7 +22,7 @@ export class StudentsService {
 
   async updateStudent(userId: string, data: UpdateStudentDto) {
     console.log('dados recebido', data);
-    return this.prisma.student.update({
+    return await this.prisma.student.update({
       where: { id: userId },
       data,
       select: {
