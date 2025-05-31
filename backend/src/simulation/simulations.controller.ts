@@ -18,7 +18,7 @@ interface AuthRequest extends Request {
 }
 
 @UseGuards(JwtAuthGuard)
-@Controller('simulations')
+@Controller('me')
 export class SimulationsController {
   constructor(private readonly SimulationsService: SimulationsService) {}
 

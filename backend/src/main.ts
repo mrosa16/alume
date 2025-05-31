@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,7 @@ async function bootstrap() {
   );
 
   app.setGlobalPrefix('api');
+  app.use((req, res, next) => new LoggerMiddleware().use(req, res, next));
 
   app.enableCors();
 
