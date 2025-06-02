@@ -56,19 +56,19 @@ export default function SimulationForm() {
         min="0"
         placeholder="Ex: 20000"
         register={register("valor_total", {
-          required: "Obrigatório",
+          required: "Valor total é obrigatorio",
           valueAsNumber: true,
         })}
         error={errors.valor_total?.message}
       />
 
       <Input
-        label="Quantidade de Quantidade de parcelas"
+        label="Quantidade de parcelas"
         type="number"
         min="0"
         placeholder="Ex: 24"
         register={register("quantidade_parcelas", {
-          required: "Obrigatório",
+          required: "Quantidade de parcelas é obrigatorio",
           valueAsNumber: true,
         })}
         error={errors.quantidade_parcelas?.message}
@@ -80,7 +80,7 @@ export default function SimulationForm() {
         step="0.01"
         placeholder="Ex: 2.5"
         register={register("juros_ao_mes", {
-          required: "Obrigatório",
+          required: "Taxa de juros é Obrigatório",
           valueAsNumber: true,
         })}
         error={errors.juros_ao_mes?.message}
