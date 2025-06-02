@@ -57,8 +57,15 @@ export class AuthService {
 
     const token = this.jwtService.sign({ sub: student.id });
 
-    return {
+   return {
+      message: 'User Autenticated',
       access_token: token,
+      student: {
+        id: student.id,
+        nome: student.nome,
+        sobrenome: student.sobrenome,
+        email: student.email,
+      },
     };
   }
 }
