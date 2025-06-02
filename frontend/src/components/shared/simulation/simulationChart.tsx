@@ -56,9 +56,6 @@ export default function SimulationChart() {
 
   return (
     <div className="bg-white p-4 rounded-md shadow-md">
-      <h2 className="text-lg font-semibold mb-4">
-        Simulações - Valor da Parcela por Data
-      </h2>
       <Chart
         options={chartOptions}
         series={[{ name: "Parcela", data }]}

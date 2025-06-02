@@ -3,7 +3,7 @@ import axios from "axios";
 import { forceLogout } from "../hooks/authUtils";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json",
   },

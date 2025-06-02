@@ -30,7 +30,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="p-6">
+    <div className="p-6 ">
       <div className="flex justify-end-safe items-center gap-2 mb-4">
         <h1 className="text-2xl font-semibold">
           Olá, {user?.nome} {user?.sobrenome}! Bem-vindo(a) 👋
@@ -54,7 +54,7 @@ export default function DashboardPage() {
       </div>
       <button
         onClick={() => navigate("/simulation")}
-        className="bg-teal hover:bg-highlight text-white py-2 px-4 rounded-full transition mt-9"
+        className="bg-teal hover:bg-highlight text-white py-2 px-4 rounded-full transition mt-9 "
       >
         <div className="flex gap-2 ">
           <CiCirclePlus size={32} className="font-bold text-white" />
@@ -81,9 +81,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="p-6">
-        <h1 className="text-2xl font-semibold mb-2">
-          Confira aqui suas últimas simulações
-        </h1>
+        <h1 className="text-2xl font-semibold mb-2">Simulações por valor</h1>
         <SimulationChart />
       </div>
       <div className="p-6">
