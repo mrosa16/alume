@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import Input from "../../components/shared/Input/Input";
 import type { RegisterFormValues } from "./authTypes";
 import FormWrapper from "../../components/shared/formWrapper/formWrapper";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function RegisterForm() {
   const {
@@ -9,31 +10,37 @@ export default function RegisterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterFormValues>();
-
+  const { register: registerUser } = useAuth();
   return (
     <FormWrapper
-      title="Login"
+      title="Registro"
       description="Registre-se aqui"
-      onSubmit={handleSubmit((data) => console.log(data))}
+      onSubmit={handleSubmit(async (data) => {
+        try {
+          await registerUser(data.nome, data.sobrenome, data.email, data.senha);
+        } catch (err) {
+          console.error("Erro no cadastro:", err);
+        }
+      })}
       buttonLabel="Registrar"
     >
       <Input
         label="Nome"
         type="text"
         placeholder="Seu Primeiro Nome"
-        register={register("firstname", {
+        register={register("nome", {
           required: "Nome é obrigatório",
         })}
-        error={errors.firstname?.message}
+        error={errors.nome?.message}
       />
       <Input
         label="Sobrenome"
         type="text"
         placeholder="Seu Sobrenome"
-        register={register("lastname", {
+        register={register("sobrenome", {
           required: "Nome é obrigatório",
         })}
-        error={errors.lastname?.message}
+        error={errors.sobrenome?.message}
       />
 
       <Input
@@ -54,14 +61,14 @@ export default function RegisterForm() {
         label="Senha"
         type="password"
         placeholder="••••••••"
-        register={register("password", {
+        register={register("senha", {
           required: "Senha é obrigatória",
           minLength: {
             value: 6,
             message: "Mínimo de 6 caracteres",
           },
         })}
-        error={errors.password?.message}
+        error={errors.senha?.message}
       />
     </FormWrapper>
   );
