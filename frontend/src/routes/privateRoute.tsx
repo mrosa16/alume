@@ -10,7 +10,7 @@ export function PrivateRoute({ children }: { children: JSX.Element }) {
     if (!isAuthenticated && !loading) {
       const timeout = setTimeout(() => {
         navigate("/login", { replace: true });
-      }, 5000);
+      }, 500);
       return () => clearTimeout(timeout);
     }
   }, [isAuthenticated, loading, navigate]);
@@ -20,6 +20,6 @@ export function PrivateRoute({ children }: { children: JSX.Element }) {
   return isAuthenticated ? (
     children
   ) : (
-    <p className="text-center">Redirecionando em 10 segundos...</p>
+    <p className="text-center">Redirecionando ...</p>
   );
 }

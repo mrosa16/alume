@@ -18,7 +18,7 @@ function SimulationHistoryPage() {
       </div>
 
       <h1 className="text-2xl font-bold mb-4">
-        Históricos de simulações de {user?.nome}
+        Histórico de simulações de {user?.nome} {user?.sobrenome}
       </h1>
 
       <SimulationTable />

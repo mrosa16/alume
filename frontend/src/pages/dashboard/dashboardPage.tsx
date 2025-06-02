@@ -81,9 +81,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="p-6">
-        <h1 className="text-2xl font-semibold mb-2">
-          Confira aqui suas últimas simulações
-        </h1>
+        <h1 className="text-2xl font-semibold mb-2">Simulações por valor</h1>
         <SimulationChart />
       </div>
       <div className="p-6">
