@@ -6,6 +6,8 @@ import { api } from "../../services/api";
 import type { SimulationFormValues } from "./simulationTypes";
 import FormWrapper from "../../components/shared/formWrapper/formWrapper";
 import Input from "../../components/shared/Input/Input";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function SimulationForm() {
   const {
@@ -16,7 +18,7 @@ export default function SimulationForm() {
   } = useForm<SimulationFormValues>();
 
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const valor_total = watch("valor_total") || 0;
   const parcelas = watch("quantidade_parcelas") || 1;
   const taxaJuros = watch("juros_ao_mes") || 0;
@@ -33,11 +35,16 @@ export default function SimulationForm() {
     try {
       setLoading(true);
       const response = await api.post("/me", data);
+
+      toast.success("Simulação criada com sucesso!");
       if (response.status === 201) {
-        window.location.replace("/simulationhistory");
+        setTimeout(function () {
+          navigate("/simulationhistory");
+        }, 5000);
       }
     } catch (error) {
-      console.error("Erro ao salvar simulação:", error);
+      console.error(error);
+      toast.error("Erro ao salvar simulação. Verifique os dados.");
     } finally {
       setLoading(false);
     }
