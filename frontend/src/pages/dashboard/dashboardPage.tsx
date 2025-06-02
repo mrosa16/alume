@@ -6,6 +6,7 @@ import type { Simulation } from "../../components/shared/table/tabletypes";
 import { api } from "../../services/api";
 import { CiCirclePlus } from "react-icons/ci";
 import SimulationChart from "../../components/shared/simulation/simulationChart";
+import { FaRegUserCircle } from "react-icons/fa";
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -30,10 +31,20 @@ export default function DashboardPage() {
 
   return (
     <div className="p-6">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-end-safe items-center gap-2 mb-4">
         <h1 className="text-2xl font-semibold">
           Olá, {user?.nome}! Bem-vindo(a) 👋
         </h1>
+        <button
+          onClick={() => navigate("/profile")}
+          className="bg-teal hover:bg-highlight text-white py-2 px-4 rounded-full transition w-full sm:w-auto"
+        >
+          <div className="flex items-center justify-center gap-2">
+            <FaRegUserCircle size={24} className="text-white" />
+            <p className="text-white text-sm sm:text-base">Meu Perfil</p>
+          </div>
+        </button>
+
         <button
           onClick={logout}
           className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-full transition"
@@ -43,7 +54,7 @@ export default function DashboardPage() {
       </div>
       <button
         onClick={() => navigate("/simulation")}
-        className="bg-teal hover:bg-highlight text-white py-2 px-4 rounded-full transition"
+        className="bg-teal hover:bg-highlight text-white py-2 px-4 rounded-full transition mt-9"
       >
         <div className="flex gap-2 ">
           <CiCirclePlus size={32} className="font-bold text-white" />

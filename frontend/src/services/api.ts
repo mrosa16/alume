@@ -1,5 +1,6 @@
 // src/services/api.ts
 import axios from "axios";
+import { forceLogout } from "../hooks/authUtils";
 
 export const api = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -23,6 +24,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       console.warn("Não autorizado. Faça login novamente.");
+      forceLogout();
     }
     return Promise.reject(error);
   }

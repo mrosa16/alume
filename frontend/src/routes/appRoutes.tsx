@@ -1,11 +1,12 @@
 // src/routes/AppRoutes.tsx
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "../pages/auth";
+import AuthPage from "../pages/auth/auth";
 
 import DashboardPage from "../pages/dashboard/dashboardPage";
 import { PrivateRoute } from "./privateRoute";
 import NewSimulationPage from "../pages/simulation/simulationPage";
 import SimulationHistoryPage from "../pages/simulation/simulationHistoryPage";
+import ProfilePage from "../pages/profile/profilePage";
 
 function AppRoutes() {
   return (
@@ -37,6 +38,14 @@ function AppRoutes() {
         element={
           <PrivateRoute>
             <SimulationHistoryPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute>
+            <ProfilePage />
           </PrivateRoute>
         }
       />
