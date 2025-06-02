@@ -5,10 +5,11 @@ export interface AuthContextDataTypes {
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (
-    name: string,
+    nome: string,
     sobrenome: string,
     email: string,
     senha: string
   ) => Promise<void>;
   logout: () => void;
+  loading: boolean;
 }

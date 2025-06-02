@@ -11,6 +11,7 @@ export const AuthContext = createContext<AuthContextDataTypes>(
 const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   const isAuthenticated = !!user;
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -26,6 +27,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         localStorage.removeItem("user");
       }
     }
+
+    setLoading(false);
   }, []);
 
   const register = async (
@@ -41,26 +44,29 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       senha,
     });
 
-    const { token, user } = response.data;
+    const { token, student } = response.data;
 
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    setUser(user);
+    setUser(student);
     navigate("/dashboard");
   };
 
   const login = async (email: string, senha: string) => {
     const response = await api.post("/auth/login", { email, senha });
 
-    const { token, user } = response.data;
+    const { access_token, student } = response.data;
 
-    localStorage.setItem("token", token);
-    localStorage.setItem("user", JSON.stringify(user));
+    if (!access_token) {
+      throw new Error("Token não recebido");
+    }
 
-    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    setUser(user);
+    localStorage.setItem("token", access_token);
+    localStorage.setItem("user", JSON.stringify(student));
+    api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+    setUser(student);
     navigate("/dashboard");
   };
 
@@ -72,7 +78,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticated, login, logout, register }}
+      value={{ user, isAuthenticated, login, logout, register, loading }}
     >
       {children}
     </AuthContext.Provider>
