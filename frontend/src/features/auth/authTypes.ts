@@ -1,11 +1,11 @@
 export interface LoginFormsValues {
   email: string;
-  password: string;
+  senha: string;
 }
 
 export interface RegisterFormValues {
-  firstname: string;
-  lastname: string;
+  nome: string;
+  sobrenome: string;
   email: string;
-  password: string;
+  senha: string;
 }
