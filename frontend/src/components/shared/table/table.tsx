@@ -1,6 +1,5 @@
 // src/components/simulation/SimulationTable.tsx
 import { useEffect, useState } from "react";
-
 import type { Simulation, TableProps } from "./tabletypes";
 import { api } from "../../../services/api";
 
@@ -9,6 +8,9 @@ export default function SimulationTable({ limit }: TableProps) {
   const [filteredSimulations, setFilteredSimulations] = useState<Simulation[]>(
     []
   );
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   const [parcelasFiltro, setParcelasFiltro] = useState("");
   const [valorMinFiltro, setValorMinFiltro] = useState("");
   const [dataFiltro, setDataFiltro] = useState("");
@@ -23,7 +25,6 @@ export default function SimulationTable({ limit }: TableProps) {
         console.error("Erro ao buscar simulações", error);
       }
     }
-
     fetchSimulations();
   }, []);
 
@@ -43,51 +44,58 @@ export default function SimulationTable({ limit }: TableProps) {
     }
 
     if (dataFiltro) {
-      filtrado = filtrado.filter((sim) => {
-        return sim.data_criacao.slice(0, 10) === dataFiltro;
-      });
+      filtrado = filtrado.filter(
+        (sim) => sim.data_criacao.slice(0, 10) === dataFiltro
+      );
     }
 
     setFilteredSimulations(filtrado);
+    setCurrentPage(1);
   };
 
-  const simToShow = limit
-    ? filteredSimulations.slice(0, limit)
-    : filteredSimulations;
+  const paginatedSimulations = !limit
+    ? filteredSimulations.slice(
+        (currentPage - 1) * itemsPerPage,
+        currentPage * itemsPerPage
+      )
+    : filteredSimulations.slice(0, limit);
+
+  const totalPages = Math.ceil(filteredSimulations.length / itemsPerPage);
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-wrap gap-4">
-        <input
-          type="number"
-          min="0"
-          placeholder="Parcelas"
-          value={parcelasFiltro}
-          onChange={(e) => setParcelasFiltro(e.target.value)}
-          className="border rounded-md px-3 py-1 text-sm"
-        />
-        <input
-          type="number"
-          min="0"
-          placeholder="Valor mínimo (R$)"
-          value={valorMinFiltro}
-          onChange={(e) => setValorMinFiltro(e.target.value)}
-          className="border rounded-md px-3 py-1 text-sm"
-        />
-        <input
-          type="date"
-          placeholder="Data"
-          value={dataFiltro}
-          onChange={(e) => setDataFiltro(e.target.value)}
-          className="border rounded-md px-3 py-1 text-sm"
-        />
-        <button
-          onClick={filtrar}
-          className="bg-teal text-white px-4 py-1 rounded-md text-sm"
-        >
-          Filtrar
-        </button>
-      </div>
+      {!limit && (
+        <div className="flex flex-wrap gap-4">
+          <input
+            type="number"
+            min="0"
+            placeholder="Parcelas"
+            value={parcelasFiltro}
+            onChange={(e) => setParcelasFiltro(e.target.value)}
+            className="border rounded-md px-3 py-1 text-sm"
+          />
+          <input
+            type="number"
+            min="0"
+            placeholder="Valor mínimo (R$)"
+            value={valorMinFiltro}
+            onChange={(e) => setValorMinFiltro(e.target.value)}
+            className="border rounded-md px-3 py-1 text-sm"
+          />
+          <input
+            type="date"
+            value={dataFiltro}
+            onChange={(e) => setDataFiltro(e.target.value)}
+            className="border rounded-md px-3 py-1 text-sm"
+          />
+          <button
+            onClick={filtrar}
+            className="bg-teal text-white px-4 py-1 rounded-md text-sm"
+          >
+            Filtrar
+          </button>
+        </div>
+      )}
 
       <div className="overflow-x-auto bg-white shadow-md rounded-lg">
         <table className="w-full text-left table-auto">
@@ -101,7 +109,7 @@ export default function SimulationTable({ limit }: TableProps) {
             </tr>
           </thead>
           <tbody>
-            {simToShow.map((sim) => (
+            {paginatedSimulations.map((sim) => (
               <tr key={sim.id} className="border-t">
                 <td className="px-4 py-2">
                   {new Date(sim.data_criacao).toLocaleDateString("pt-BR")}
@@ -125,6 +133,30 @@ export default function SimulationTable({ limit }: TableProps) {
           </tbody>
         </table>
       </div>
+
+      {!limit && (
+        <div className="flex justify-center gap-2 mt-4">
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Anterior
+          </button>
+          <span className="px-4 py-2 font-medium">
+            Página {currentPage} de {totalPages}
+          </span>
+          <button
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
+            disabled={currentPage === totalPages}
+            className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+          >
+            Próxima
+          </button>
+        </div>
+      )}
     </div>
   );
 }

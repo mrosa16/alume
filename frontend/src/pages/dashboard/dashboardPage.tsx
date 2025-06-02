@@ -33,7 +33,7 @@ export default function DashboardPage() {
     <div className="p-6">
       <div className="flex justify-end-safe items-center gap-2 mb-4">
         <h1 className="text-2xl font-semibold">
-          Olá, {user?.nome}! Bem-vindo(a) 👋
+          Olá, {user?.nome} {user?.sobrenome}! Bem-vindo(a) 👋
         </h1>
         <button
           onClick={() => navigate("/profile")}
