@@ -5,11 +5,13 @@ import Input from "../../components/shared/Input/Input";
 import type { EditFormValues } from "./profileTypes";
 import { useState } from "react";
 import { api } from "../../services/api";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 export default function ProfileForm() {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -30,8 +32,13 @@ export default function ProfileForm() {
 
     try {
       const response = await api.put("/student", data);
+      toast.success("Atualizações realizadas com sucesso!");
+      localStorage.setItem("user", JSON.stringify(response.data));
       if (response.status === 200) {
-        window.location.replace("/dashboard");
+        setTimeout(() => {
+          navigate("/dashboard");
+          window.location.reload();
+        }, 5000);
       }
     } catch (error) {
       console.error("Erro ao salvar simulação:", error);

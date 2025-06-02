@@ -4,6 +4,7 @@ import type { AuthContextDataTypes } from "./interface/authContextDataTypes";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../services/api";
 import type { User } from "./interface/userTypes";
+import { toast } from "react-toastify";
 
 export const AuthContext = createContext<AuthContextDataTypes>(
   {} as AuthContextDataTypes
@@ -54,19 +55,30 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     navigate("/dashboard");
   };
   const login = async (email: string, senha: string) => {
-    const response = await api.post("/auth/login", { email, senha });
+    try {
+      const response = await api.post("/auth/login", { email, senha });
 
-    const { access_token, student } = response.data;
+      const { access_token, student } = response.data;
 
-    if (!access_token) {
-      throw new Error("Token não recebido");
+      if (!access_token || !student) {
+        toast.error("Erro ao autenticar. Tente novamente.");
+        return;
+      }
+
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(student));
+      api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+      setUser(student);
+
+      toast.success("Login realizado com sucesso!");
+      navigate("/dashboard");
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        toast.error("Email ou senha inválidos.");
+      } else {
+        toast.error("Erro ao fazer login. Tente novamente.");
+      }
     }
-
-    localStorage.setItem("token", access_token);
-    localStorage.setItem("user", JSON.stringify(student));
-    api.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-    setUser(student);
-    navigate("/dashboard");
   };
 
   const logout = () => {
