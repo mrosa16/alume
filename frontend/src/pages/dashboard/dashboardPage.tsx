@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import type { Simulation } from "../../components/shared/table/tabletypes";
 import { api } from "../../services/api";
 import { CiCirclePlus } from "react-icons/ci";
+import SimulationChart from "../../components/shared/simulation/simulationChart";
 
 export default function DashboardPage() {
   const { user, logout } = useAuth();
@@ -50,7 +51,6 @@ export default function DashboardPage() {
         </div>
       </button>
       <h1 className="text-2xl font-semibold mb-4">Resumo das Simulações</h1>
-
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         <div className="bg-white shadow-md p-4 rounded-md">
           <h2 className="text-gray-500 text-sm">Total de Simulações</h2>
@@ -69,6 +69,12 @@ export default function DashboardPage() {
         </div>
       </div>
 
+      <div className="p-6">
+        <h1 className="text-2xl font-semibold mb-2">
+          Confira aqui suas últimas simulações
+        </h1>
+        <SimulationChart />
+      </div>
       <div className="p-6">
         <h1 className="text-2xl font-semibold mb-2">
           Confira aqui suas últimas simulações
