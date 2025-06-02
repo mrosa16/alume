@@ -53,6 +53,7 @@ export default function SimulationForm() {
       <Input
         label="Valor Total"
         type="number"
+        min="0"
         placeholder="Ex: 20000"
         register={register("valor_total", {
           required: "Obrigatório",
@@ -64,6 +65,7 @@ export default function SimulationForm() {
       <Input
         label="Quantidade de Quantidade de parcelas"
         type="number"
+        min="0"
         placeholder="Ex: 24"
         register={register("quantidade_parcelas", {
           required: "Obrigatório",

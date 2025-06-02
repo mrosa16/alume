@@ -1,9 +1,9 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import logo from "../assets/logo.png";
-import RegisterForm from "../features/auth/registerForm";
-import LoginForm from "../features/auth/loginForm";
+import logo from "../../assets/logo.png";
+import RegisterForm from "../../features/auth/registerForm";
+import LoginForm from "../../features/auth/loginForm";
 
 function AuthPage() {
   const location = useLocation();
@@ -53,7 +53,7 @@ function AuthPage() {
               }`}
               onClick={() => handleTabClick("login")}
             >
-              Log In
+              Login
             </button>
           </div>
 

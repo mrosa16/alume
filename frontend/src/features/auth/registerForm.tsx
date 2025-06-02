@@ -11,6 +11,7 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm<RegisterFormValues>();
   const { register: registerUser } = useAuth();
+
   return (
     <FormWrapper
       title="Registro"

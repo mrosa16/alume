@@ -44,16 +44,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       senha,
     });
 
-    const { token, student } = response.data;
+    const { token, user } = response.data;
 
     localStorage.setItem("token", token);
     localStorage.setItem("user", JSON.stringify(user));
 
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    setUser(student);
+    setUser(user);
     navigate("/dashboard");
   };
-
   const login = async (email: string, senha: string) => {
     const response = await api.post("/auth/login", { email, senha });
 

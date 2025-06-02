@@ -8,7 +8,7 @@ export class SimulationsService {
 
   async createSimulation(userId: string, data: CreateSimulationsDto) {
     const { valor_total, quantidade_parcelas, juros_ao_mes } = data;
-    const i = juros_ao_mes;
+    const i = juros_ao_mes / 100;
     const n = quantidade_parcelas;
     const PV = valor_total;
 
