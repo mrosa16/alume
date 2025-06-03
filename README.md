@@ -85,12 +85,12 @@ JWT_EXPIRES_IN=300s
 
 ## 🖥️ Imagens do sistema
 
-![Cadastro](/assets/cadastro.mp4)
-![Login](/assets/login.mp4)
-![Alteração dos dados](/assets/edicao-estudante.mp4)
-![Gráfico](/assets/graph.mp4)
-![Filtro da tabela](/assets/filtro.mp4)
-![Simulação](/assets/simulacao.mp4)
+![Cadastro](/assets/cadastro.gif)
+![Login](/assets/login.gif)
+![Alteração dos dados](/assets/edicao-estudante.gif)
+![Gráfico](/assets/graph.gif)
+![Filtro da tabela](/assets/filtro.gif)
+![Simulação](/assets/simulacao.gif)
 
 ## 💡 Tecnologias Utilizadas
 
