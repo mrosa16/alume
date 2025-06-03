@@ -47,8 +47,9 @@ cd alume-finance-app
 2. Crie os arquivos de ambiente:
 
 ```bash
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
+copy backend\.env.example backend\.env
+copy frontend\.env.example frontend\.env
+
 ```
 
 3. Suba os containers:
