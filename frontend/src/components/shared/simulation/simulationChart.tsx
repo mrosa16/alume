@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import type { Simulation } from "../table/tabletypes";
 import { api } from "../../../services/api";
+import type { ApexOptions } from "apexcharts";
+
 export default function SimulationChart() {
   const [simulations, setSimulations] = useState<Simulation[]>([]);
 
@@ -23,7 +25,7 @@ export default function SimulationChart() {
       y: sim.valor_parcela_mensal,
     }));
 
-  const chartOptions = {
+  const chartOptions: ApexOptions = {
     chart: {
       id: "simulation-bar-chart",
       toolbar: { show: false },

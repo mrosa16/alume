@@ -40,5 +40,19 @@ services:
       - ./backend:/app
     command: npm run start:dev
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - '5173:80'
+    depends_on:
+      - api
+    environment:
+      - VITE_API_URL=http://localhost:3000/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
 volumes:
   postgres-data:

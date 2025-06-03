@@ -1,4 +1,3 @@
-// src/services/api.ts
 import axios from "axios";
 import { forceLogout } from "../hooks/authUtils";
 
