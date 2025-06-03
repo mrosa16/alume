@@ -6,7 +6,7 @@ Sistema completo de **simulação de financiamentos**, com:
 - Edição de perfil
 - Dashboard com gráficos
 - Histórico com filtros
-- Modo claro/escuro
+
 
 Desenvolvido em **React** no frontend e **NestJS com Prisma** no backend.
 
